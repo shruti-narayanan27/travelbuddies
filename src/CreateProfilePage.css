@@ -1,0 +1,69 @@
+
+.create-page {
+    background-color: #dbeafe;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    font-family: "Inter", sans-serif;
+  }
+  
+  /* === Search bar shared === */
+  .search-bar {
+    background: #e0ecfd;
+    display: flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 12px;
+    gap: 10px;
+    width: 100%;
+    max-width: 420px;
+    margin-bottom: 20px;
+  }
+  
+  .search-bar input {
+    flex: 1;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    background: white;
+  }
+  
+  .menu-icon,
+  .search-icon {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  /* === Form === */
+  .create-form {
+    display: flex;
+    flex-direction: column;
+    background: #e0ecfd;
+    padding: 20px;
+    border-radius: 16px;
+    width: 100%;
+    max-width: 420px;
+    gap: 10px;
+  }
+  
+  .create-form input,
+  .create-form select,
+  .create-form button {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+  }
+  
+  .create-form button {
+    background-color: white;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
