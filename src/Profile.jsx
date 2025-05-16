@@ -1,19 +1,40 @@
-import React from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { doc, getDoc } from "firebase/firestore";
+import db from "./firebase";
 import "./Profile.css";
 
 function Profile() {
-  const location = useLocation();
+  const [searchParams] = useSearchParams();
+  const profileId = searchParams.get("id");
 
-  // Get profile data passed from CreateProfilePage.jsx
-  const profile = location.state?.profile || {
-    name: "N/A",
-    age: "N/A",
-    gender: "N/A",
-    location: "N/A",
-    transport: "N/A",
-    traits: [],
-  };
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      if (!profileId) return;
+
+      try {
+        const docRef = doc(db, "profiles", profileId);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setProfile(docSnap.data());
+        } else {
+          alert("Profile not found.");
+        }
+      } catch (err) {
+        alert("Error loading profile.");
+        console.error(err);
+      }
+      setLoading(false);
+    };
+
+    fetchProfile();
+  }, [profileId]);
+
+  if (loading) return <div className="profile-page">Loading profile...</div>;
+  if (!profile) return <div className="profile-page">Profile not found.</div>;
 
   return (
     <div className="profile-page">

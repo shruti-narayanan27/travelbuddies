@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { doc, getDoc, addDoc, updateDoc, collection } from "firebase/firestore";
+import db from "./firebase";
 import "./CreateProfilePage.css";
 
 function CreateProfilePage() {
   const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     name: "",
     age: "",
@@ -13,6 +14,37 @@ function CreateProfilePage() {
     transport: "Uber",
     traits: ["", "", ""],
   });
+
+  const [existingDocId, setExistingDocId] = useState(null);
+
+  // Load existing profile if it exists
+  useEffect(() => {
+    const fetchSavedProfile = async () => {
+      const savedId = localStorage.getItem("profileId");
+      if (!savedId) return;
+
+      try {
+        const ref = doc(db, "profiles", savedId);
+        const snap = await getDoc(ref);
+        if (snap.exists()) {
+          const data = snap.data();
+          setFormData({
+            name: data.name || "",
+            age: data.age || "",
+            gender: data.gender || "",
+            location: data.location || "",
+            transport: data.transport || "Uber",
+            traits: data.traits || ["", "", ""],
+          });
+          setExistingDocId(savedId); // ✅ set for later updating
+        }
+      } catch (err) {
+        console.error("Failed to load saved profile:", err);
+      }
+    };
+
+    fetchSavedProfile();
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,10 +57,25 @@ function CreateProfilePage() {
     setFormData((prev) => ({ ...prev, traits: updatedTraits }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // ✅ Navigate to /profile and pass form data directly
-    navigate("/profile", { state: { profile: formData } });
+
+    try {
+      if (existingDocId) {
+        // ✅ Update existing profile
+        const ref = doc(db, "profiles", existingDocId);
+        await updateDoc(ref, formData);
+        navigate(`/profile?id=${existingDocId}`);
+      } else {
+        // ➕ Create new profile
+        const docRef = await addDoc(collection(db, "profiles"), formData);
+        localStorage.setItem("profileId", docRef.id);
+        navigate(`/profile?id=${docRef.id}`);
+      }
+    } catch (err) {
+      console.error("Failed to save profile:", err);
+      alert("Something went wrong while saving.");
+    }
   };
 
   return (
@@ -40,16 +87,16 @@ function CreateProfilePage() {
       </div>
 
       <form className="create-form" onSubmit={handleSubmit}>
-        <input name="name" placeholder="Name" onChange={handleChange} required />
-        <input name="age" type="number" placeholder="Age" onChange={handleChange} required />
-        <input name="location" placeholder="Location" onChange={handleChange} required />
-        <select name="gender" onChange={handleChange} required>
+        <input name="name" placeholder="Name" value={formData.name} onChange={handleChange} required />
+        <input name="age" type="number" placeholder="Age" value={formData.age} onChange={handleChange} required />
+        <input name="location" placeholder="Location" value={formData.location} onChange={handleChange} required />
+        <select name="gender" value={formData.gender} onChange={handleChange} required>
           <option value="">Gender</option>
           <option>Female</option>
           <option>Male</option>
           <option>Other</option>
         </select>
-        <select name="transport" onChange={handleChange} required>
+        <select name="transport" value={formData.transport} onChange={handleChange} required>
           <option>Uber</option>
           <option>Lyft</option>
           <option>Bus</option>
@@ -63,7 +110,7 @@ function CreateProfilePage() {
             required
           />
         ))}
-        <button type="submit">Save Profile</button>
+        <button type="submit">{existingDocId ? "Update Profile" : "Save Profile"}</button>
       </form>
     </div>
   );

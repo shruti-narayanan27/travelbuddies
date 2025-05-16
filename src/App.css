@@ -11,6 +11,7 @@ body {
 
 /* Main container like a centered square card */
 .page-container {
+  padding-top: 60px;
   background-color: #dbeafe;
   display: flex;
   flex-direction: column;

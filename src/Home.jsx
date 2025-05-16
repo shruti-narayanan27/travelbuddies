@@ -5,7 +5,7 @@ function Home() {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div className="page-container">
       <div className="search-bar">
         <button className="menu-icon">☰</button>
         <input type="text" placeholder="Hinted search text" />

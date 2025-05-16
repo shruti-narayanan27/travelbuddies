@@ -1,0 +1,26 @@
+.top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #c7dcf6;
+    display: flex;
+    align-items: center;
+    padding: 16px 24px;
+    font-family: "Playfair Display", serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: #1e3a8a;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+    z-index: 200;
+  }
+  
+  .logo {
+    font-size: 28px;
+    margin-right: 12px;
+  }
+  
+  .brand-name {
+    font-size: 26px;
+    letter-spacing: 0.5px;
+  }

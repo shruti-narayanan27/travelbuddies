@@ -5,7 +5,8 @@ import Profile from "./Profile";
 import Text from "./Text";
 import Uber from "./Uber";
 import Guide from "./Guide";
-import CreateProfilePage from "./CreateProfilePage"; // ✅ renamed import
+import CreateProfilePage from "./CreateProfilePage";
+import Header from "./Header";
 
 import "./App.css";
 
@@ -13,6 +14,10 @@ function App() {
   return (
     <Router>
       <div className="app-wrapper">
+        {/* ✅ Top Header Bar */}
+        <Header />
+
+        {/* ✅ Main Page Content */}
         <div className="square-layout">
           <Routes>
             <Route path="/" element={<Home />} />
@@ -24,7 +29,7 @@ function App() {
           </Routes>
         </div>
 
-        {/* Bottom Navigation */}
+        {/* ✅ Bottom Navigation */}
         <div className="bottom-nav">
           <Link to="/">🏠</Link>
           <Link to="/guide">🗺️</Link> 
