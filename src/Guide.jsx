@@ -4,7 +4,7 @@ import "./Guide.css";
 function Guide() {
   return (
     <div className="guide-page">
-      <h2>🧭 Travel Guide for New Bruins</h2>
+      <h2>🧭 Travel Guide for Bruins</h2>
       <p>Explore popular spots and safe areas around LA!</p>
 
       <div className="guide-section">
@@ -30,6 +30,11 @@ function Guide() {
           <li>Hammer Museum</li>
           <li>Fat Sal's</li>
         </ul>
+        <img
+            className="guide-image"
+            src="https://www.historictheatrephotos.com/Resources/Theatre-Photos/Fox-Westwood/Photos/Exterior/Exterior_wide.jpg"
+            alt="Westwood"
+        />
       </div>
 
       <div className="guide-section">
@@ -38,7 +43,27 @@ function Guide() {
           <li>Santa Monica Pier</li>
           <li>Melrose Ave</li>
           <li>The Grove</li>
+          <li>Griffith Observatory</li>
         </ul>
+        <img
+            className="guide-image"
+            src="https://www.exp1.com/wp-content/uploads/sites/7/2020/08/Santa-Monica-Pier-e1597077705511.jpg"
+            alt="SMpier"
+        />
+       
+      </div>
+
+      <div className="guide-section">
+        <h3>✈️ Transportation Hubs </h3>
+        <ul>
+          <li>LAX Airport</li>
+          <li>Union Station</li>
+        </ul>
+        <img
+            className="guide-image"
+            src="https://www.extraspace.com/wp-content/uploads/2018/11/living-in-los-angeles.jpg"
+            alt="Westwood"
+        />
       </div>
     </div>
   );

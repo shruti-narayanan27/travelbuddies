@@ -1,3 +1,4 @@
+
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -13,31 +14,35 @@ function Home() {
       </div>
 
       <div className="calendar-box">
-        <div className="calendar-header">June 2024</div>
+        <div className="calendar-header">May 2025</div>
 
         <div className="calendar-days">
           <div>SUN</div><div>MON</div><div>TUE</div><div>WED</div><div>THU</div><div>FRI</div><div>SAT</div>
         </div>
 
         <div className="calendar-dates">
-          {Array.from({ length: 30 }, (_, i) => {
-            const day = i + 1;
-            const className =
-              day === 10
-                ? "highlight-blue"
-                : day === 26
-                ? "highlight-circle"
-                : "";
-            return (
-              <div key={day} className={`date ${className}`}>
-                {day}
-              </div>
-            );
-          })}
-        </div>
+  {[...Array(4)].map((_, i) => (
+    <div key={`empty-${i}`} className="date"></div> // Empty cells for Sun–Wed
+  ))}
+
+  {Array.from({ length: 31 }, (_, i) => {
+    const day = i + 1;
+    const className =
+      day === 17
+        ? "highlight-blue"
+        : day === 26
+        ? "highlight-circle"
+        : "";
+    return (
+      <div key={day} className={`date ${className}`}>
+        {day}
+      </div>
+    );
+  })}
+</div>
+
 
         <div className="time-picker">
-          <span>Ends</span>
           <input type="time" value="08:00" readOnly />
         </div>
       </div>
@@ -52,3 +57,8 @@ function Home() {
 }
 
 export default Home;
+
+
+
+
+

@@ -1,0 +1,19 @@
+.time-picker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    gap: 10px;
+  }
+  
+  .time-picker input[type="time"] {
+    background-color: #e7f3ff;
+    color: black;
+    border: 1px solid #ccc;
+    border-radius: 12px;
+    padding: 6px 12px;
+    font-size: 12px;
+    width: 110px; /* ← Add this or increase it */
+    appearance: none;
+    text-align: center;
+  }
