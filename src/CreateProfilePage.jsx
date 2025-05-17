@@ -82,7 +82,7 @@ function CreateProfilePage() {
     <div className="create-page">
       <div className="search-bar">
         <button className="menu-icon">☰</button>
-        <input type="text" placeholder="Hinted search text" />
+        <input type="text" placeholder="Search" />
         <button className="search-icon">🔍</button>
       </div>
 
